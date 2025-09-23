@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Top 5 Rented Films</h2>
+<ul>
+  {% for film in films %}
+    <li>
+      <a href="/film/{{ film.film_id }}">{{ film.title }}</a> 
+      ({{ film.rental_count }} rentals)
+    </li>
+  {% endfor %}
+</ul>
+
+<h2>Top 5 Actors</h2>
+<ul>
+  {% for actor in actors %}
+    <li>
+      <a href="/actor/{{ actor.actor_id }}">
+        {{ actor.first_name }} {{ actor.last_name }}
+      </a> 
+      ({{ actor.film_count }} films)
+    </li>
+  {% endfor %}
+</ul>
+{% endblock %}
+
