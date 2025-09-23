@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Films</h2>
+
+<form method="get" action="/films">
+  <input type="text" name="search" value="{{ search }}" placeholder="Search films, actors, or genres">
+  <button type="submit">Search</button>
+</form>
+
+<table border="1">
+  <tr><th>Title</th><th>Category</th><th>Rentals</th><th>Action</th></tr>
+  {% for film in films %}
+  <tr>
+    <td><a href="/film/{{ film.film_id }}">{{ film.title }}</a></td>
+    <td>{{ film.category }}</td>
+    <td>{{ film.rental_count }}</td>
+    <td>
+      <form method="post" action="/rent/{{ film.film_id }}">
+        <input type="number" name="customer_id" placeholder="Customer ID" required>
+        <button type="submit">Rent</button>
+      </form>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}
+
