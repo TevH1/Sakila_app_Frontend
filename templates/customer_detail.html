@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Customer Details</h2>
+
+<p><b>ID:</b> {{ customer.customer_id }}</p>
+<p><b>Name:</b> {{ customer.first_name }} {{ customer.last_name }}</p>
+<p><b>Email:</b> {{ customer.email }}</p>
+<p><b>Active:</b> {{ "Yes" if customer.active else "No" }}</p>
+
+<h3>Rental History</h3>
+<table>
+  <tr>
+    <th>Film</th>
+    <th>Rental Date</th>
+    <th>Return Date</th>
+    <th>Action</th>
+  </tr>
+  {% for r in rentals %}
+  <tr>
+    <td>{{ r.title }}</td>
+    <td>{{ r.rental_date }}</td>
+    <td>{{ r.return_date if r.return_date else "Not Returned" }}</td>
+    <td>
+      {% if not r.return_date %}
+      <form method="post" action="/rentals/return/{{ r.rental_id }}">
+        <button type="submit">Mark Returned</button>
+      </form>
+      {% else %}
+      <em>Returned</em>
+      {% endif %}
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}
+

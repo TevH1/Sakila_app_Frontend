@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+{% if error %}
+  <p>{{ error }}</p>
+{% else %}
+  <h2>{{ film.title }}</h2>
+  <p><b>Year:</b> {{ film.release_year }}</p>
+  <p><b>Category:</b> {{ film.category }}</p>
+  <p><b>Rentals:</b> {{ film.rental_count }}</p>
+  <p><b>Description:</b> {{ film.description }}</p>
+
+  <h3>Top 5 Actors in this Film</h3>
+  <ul>
+    {% for actor in actors %}
+      <li>
+        <a href="/actor/{{ actor.actor_id }}">
+          {{ actor.first_name }} {{ actor.last_name }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}
+{% endblock %}
+

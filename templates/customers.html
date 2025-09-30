@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Customers</h2>
+
+<form method="get" action="/customers">
+  <input type="text" name="search" value="{{ search }}" placeholder="Search by ID, first or last name">
+  <button type="submit">Search</button>
+</form>
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Actions</th>
+  </tr>
+  {% for c in customers %}
+  <tr>
+    <td>{{ c.customer_id }}</td>
+    <td>{{ c.first_name }} {{ c.last_name }}</td>
+    <td>{{ c.email }}</td>
+    <td>
+      <a href="/customers/{{ c.customer_id }}">Details</a> |
+      <a href="/customers/edit/{{ c.customer_id }}">Edit</a> |
+      <form action="/customers/delete/{{ c.customer_id }}" method="post" style="display:inline;">
+        <button type="submit" onclick="return confirm('Delete this customer?')">Delete</button>
+      </form>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
+<div>
+  {% if page > 1 %}
+    <a href="/customers?page={{ page - 1 }}&search={{ search }}">Previous</a>
+  {% endif %}
+
+  Page {{ page }}
+
+  {% if page * per_page < total %}
+    <a href="/customers?page={{ page + 1 }}&search={{ search }}">Next</a>
+  {% endif %}
+</div>
+{% endblock %}
+

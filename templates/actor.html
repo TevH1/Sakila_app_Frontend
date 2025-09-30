@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+{% if error %}
+  <p>{{ error }}</p>
+{% else %}
+  <h2>{{ actor.first_name }} {{ actor.last_name }}</h2>
+  <p><b>Total Films:</b> {{ actor.film_count }}</p>
+
+  <h3>Top 5 Rented Films for this Actor</h3>
+  <ul>
+    {% for film in films %}
+      <li>
+        <a href="/film/{{ film.film_id }}">
+          {{ film.title }}
+        </a> ({{ film.rental_count }} rentals)
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}
+{% endblock %}
+
